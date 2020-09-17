@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.leslie.framework.easypay.module.ali.config.AilPayAutoConfiguration,\
+  com.leslie.framework.easypay.module.wx.config.WxPayAutoConfiguration.\
+  com.leslie.framework.easypay.module.union.config.UnionPayAutoConfiguration
