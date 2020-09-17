@@ -11,6 +11,7 @@ import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -41,7 +42,7 @@ public class WxPayAutoConfiguration {
 
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnClass(HttpClient.class)
     public HttpClient httpClient(BasicHttpClientConnectionManager basicHttpClientConnectionManager) {
         return HttpClientBuilder.create()
                 .setConnectionManager(basicHttpClientConnectionManager)
@@ -49,7 +50,7 @@ public class WxPayAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnClass(BasicHttpClientConnectionManager.class)
     public BasicHttpClientConnectionManager basicHttpClientConnectionManager(SSLConnectionSocketFactory sslConnectionSocketFactory) {
 
         return new BasicHttpClientConnectionManager(
@@ -64,10 +65,9 @@ public class WxPayAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnClass(SSLConnectionSocketFactory.class)
     public SSLConnectionSocketFactory sslConnectionSocketFactory(WxPayProperties wxPayProperties) {
         String certPath = wxPayProperties.getCertPath();
-        // 无证书
         if (certPath == null) {
             return SSLConnectionSocketFactory.getSocketFactory();
         }
