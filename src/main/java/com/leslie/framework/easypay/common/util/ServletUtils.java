@@ -43,7 +43,7 @@ public class ServletUtils {
      * @param out      输出
      * @throws IOException I/O
      */
-    public static void responseWrite(HttpServletResponse response, String out) throws IOException {
+    public static void write(HttpServletResponse response, String out) throws IOException {
         PrintWriter writer = response.getWriter();
         writer.write(out);
         writer.flush();

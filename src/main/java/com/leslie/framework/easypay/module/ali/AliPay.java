@@ -58,7 +58,7 @@ public class AliPay {
             AlipayTradePagePayResponse payResponse = client.pay(subject, outTradeNo, totalAmount, returnUrl);
 
             response.setContentType(ServletUtils.HTTP_CONTENT_HTML);
-            ServletUtils.responseWrite(response, payResponse.body);
+            ServletUtils.write(response, payResponse.body);
 
         } catch (Exception e) {
             log.error("pc支付异常, method=alipay.trade.page.pay outTradeNo={} reason={}", e.getMessage(), e);
@@ -96,7 +96,7 @@ public class AliPay {
             AlipayTradeWapPayResponse payResponse = client.pay(subject, outTradeNo, totalAmount, quitUrl, returnUrl);
 
             response.setContentType(ServletUtils.HTTP_CONTENT_HTML);
-            ServletUtils.responseWrite(response, payResponse.body);
+            ServletUtils.write(response, payResponse.body);
 
         } catch (Exception e) {
             log.error("手机网站支付异常, method=alipay.trade.way.pay outTradeNo={} reason={}", outTradeNo, e.getMessage());
