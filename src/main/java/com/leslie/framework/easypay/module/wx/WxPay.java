@@ -28,6 +28,10 @@ public class WxPay {
         this.signer = signer;
     }
 
+    public WxPayProperties properties() {
+        return client.getWxPayProperties();
+    }
+
     /**
      * 统一下单
      * 场景：公共号支付、扫码支付、APP支付
@@ -53,30 +57,6 @@ public class WxPay {
     }
 
     /**
-     * 向 Map 中添加必要参数
-     * 该函数适用于商户适用于统一下单等接口，不适用于红包、代金券接口
-     *
-     * @param params post的请求数据
-     * @return 完整的请求数据
-     */
-    private Map<String, String> doParams(Map<String, String> params) {
-        WxPayProperties properties = properties();
-
-        boolean exist = !params.containsKey("notify_url") && StringUtils.isNotBlank(properties.getNotifyUrl());
-        if (exist) {
-            params.put("notify_url", properties.getNotifyUrl());
-        }
-        params.put("appid", properties.getAppId());
-        params.put("mch_id", properties.getMchId());
-        params.put("sign_type", properties.getSignType().name());
-        params.put("nonce_str", StrUtils.getRandomStr(32));
-
-        String content = signer.signContent(params);
-        params.put("sign", signer.sign(content, properties.getKey(), properties.getSignType()));
-        return params;
-    }
-
-    /**
      * 对参数集合进行验签
      * 必须包含sign字段，否则返回false
      *
@@ -99,8 +79,21 @@ public class WxPay {
         return verify(XmlUtils.xml2Map(xmlContent));
     }
 
-    public WxPayProperties properties() {
-        return client.getWxPayProperties();
+    private Map<String, String> doParams(Map<String, String> params) {
+        WxPayProperties properties = properties();
+
+        boolean exist = !params.containsKey("notify_url") && StringUtils.isNotBlank(properties.getNotifyUrl());
+        if (exist) {
+            params.put("notify_url", properties.getNotifyUrl());
+        }
+        params.put("appid", properties.getAppId());
+        params.put("mch_id", properties.getMchId());
+        params.put("sign_type", properties.getSignType().name());
+        params.put("nonce_str", StrUtils.getRandomStr(32));
+
+        String content = signer.signContent(params);
+        params.put("sign", signer.sign(content, properties.getKey(), properties.getSignType()));
+        return params;
     }
 
 }

@@ -1,16 +1,11 @@
 package com.leslie.framework.easypay.module.wx.core;
 
+import com.leslie.framework.easypay.common.util.SignUtils;
 import com.leslie.framework.easypay.module.wx.constant.SIGN_TYPE_ENUM;
 import com.leslie.framework.easypay.module.wx.constant.WxPayConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -62,9 +57,9 @@ public class Signer {
         try {
 
             if (SIGN_TYPE_ENUM.MD5 == signType) {
-                return md5(content);
+                return SignUtils.md5(content).toUpperCase();
             } else {
-                return hmacSha256(content, apiKey);
+                return SignUtils.hmacSha256(content, apiKey).toUpperCase();
             }
 
         } catch (Exception e) {
@@ -92,43 +87,4 @@ public class Signer {
         return false;
     }
 
-    /**
-     * MD5 加密
-     *
-     * @param data 待处理数据
-     * @return MD5结果
-     */
-    public static String md5(String data) throws NoSuchAlgorithmException {
-        StringBuilder content = new StringBuilder();
-
-        MessageDigest digest = MessageDigest.getInstance("MD5");
-        byte[] array = digest.digest(data.getBytes(StandardCharsets.UTF_8));
-
-        for (byte item : array) {
-            content.append(Integer.toHexString((item & 0xFF) | 0x100), 1, 3);
-        }
-
-        return content.toString().toUpperCase();
-    }
-
-    /**
-     * HMAC-SHA256 加密
-     *
-     * @param data       待处理数据
-     * @param privateKey 密钥
-     * @return 加密结果
-     */
-    public static String hmacSha256(String data, String privateKey) throws NoSuchAlgorithmException, InvalidKeyException {
-        StringBuilder content = new StringBuilder();
-
-        Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(new SecretKeySpec(privateKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-
-        byte[] array = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
-        for (byte item : array) {
-            content.append(Integer.toHexString((item & 0xFF) | 0x100), 1, 3);
-        }
-
-        return content.toString().toUpperCase();
-    }
 }
