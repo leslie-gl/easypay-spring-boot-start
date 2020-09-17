@@ -1,4 +1,4 @@
-package com.leslie.framework.easypay.module.wx.kernel;
+package com.leslie.framework.easypay.module.wx.core;
 
 import com.leslie.framework.easypay.common.util.ServletUtils;
 import com.leslie.framework.easypay.module.wx.config.WxPayProperties;

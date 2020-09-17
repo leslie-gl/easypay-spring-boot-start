@@ -3,7 +3,6 @@ package com.leslie.framework.easypay.module.ali.config;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Config;
 import com.leslie.framework.easypay.module.ali.AliPay;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,13 +14,12 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/9/2
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnClass(Factory.class)
 @ConditionalOnProperty(prefix = "uni.pay.ali", name = "enable", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(AliPayProperties.class)
 public class AilPayAutoConfiguration {
 
     @Bean
-    @ConditionalOnClass(Config.class)
+    @ConditionalOnMissingBean
     public Config config(AliPayProperties aliPayProperties) {
         Config config = new Config();
 

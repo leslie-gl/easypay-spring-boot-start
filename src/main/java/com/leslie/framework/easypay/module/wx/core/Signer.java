@@ -1,4 +1,4 @@
-package com.leslie.framework.easypay.module.wx.kernel;
+package com.leslie.framework.easypay.module.wx.core;
 
 import com.leslie.framework.easypay.module.wx.constant.SIGN_TYPE_ENUM;
 import com.leslie.framework.easypay.module.wx.constant.WxPayConstants;

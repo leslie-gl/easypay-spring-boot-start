@@ -1,18 +1,16 @@
 package com.leslie.framework.easypay.module.wx.config;
 
 import com.leslie.framework.easypay.module.wx.WxPay;
-import com.leslie.framework.easypay.module.wx.kernel.Client;
-import com.leslie.framework.easypay.module.wx.kernel.Signer;
+import com.leslie.framework.easypay.module.wx.core.Client;
+import com.leslie.framework.easypay.module.wx.core.Signer;
 import org.apache.http.client.HttpClient;
 import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -43,7 +41,7 @@ public class WxPayAutoConfiguration {
 
 
     @Bean
-    @ConditionalOnClass(HttpClient.class)
+    @ConditionalOnMissingBean
     public HttpClient httpClient(BasicHttpClientConnectionManager basicHttpClientConnectionManager) {
         return HttpClientBuilder.create()
                 .setConnectionManager(basicHttpClientConnectionManager)
@@ -51,7 +49,7 @@ public class WxPayAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnClass(HttpClientConnectionManager.class)
+    @ConditionalOnMissingBean
     public BasicHttpClientConnectionManager basicHttpClientConnectionManager(SSLConnectionSocketFactory sslConnectionSocketFactory) {
 
         return new BasicHttpClientConnectionManager(
@@ -66,6 +64,7 @@ public class WxPayAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public SSLConnectionSocketFactory sslConnectionSocketFactory(WxPayProperties wxPayProperties) {
         String certPath = wxPayProperties.getCertPath();
         // 无证书
