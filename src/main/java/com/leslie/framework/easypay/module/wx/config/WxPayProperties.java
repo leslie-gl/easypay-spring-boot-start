@@ -1,6 +1,5 @@
 package com.leslie.framework.easypay.module.wx.config;
 
-import com.leslie.framework.easypay.module.wx.constant.SIGN_TYPE_ENUM;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -61,7 +60,7 @@ public class WxPayProperties {
     /**
      * 加密方式
      */
-    private SIGN_TYPE_ENUM signType = SIGN_TYPE_ENUM.MD5;
+    private WxPayConstants.SIGN_TYPE_ENUM signType = WxPayConstants.SIGN_TYPE_ENUM.MD5;
     /**
      * HTTP(S) 连接超时时间，单位毫秒
      */

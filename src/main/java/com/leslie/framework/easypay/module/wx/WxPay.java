@@ -2,8 +2,8 @@ package com.leslie.framework.easypay.module.wx;
 
 import com.leslie.framework.easypay.common.util.StrUtils;
 import com.leslie.framework.easypay.common.util.XmlUtils;
+import com.leslie.framework.easypay.module.wx.config.WxPayConstants;
 import com.leslie.framework.easypay.module.wx.config.WxPayProperties;
-import com.leslie.framework.easypay.module.wx.constant.WxPayConstants;
 import com.leslie.framework.easypay.module.wx.core.Client;
 import com.leslie.framework.easypay.module.wx.core.Signer;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class WxPay {
         WxPayProperties properties = properties();
         String result = null;
 
-        String url = properties.isEnableSandbox() ? WxPayConstants.SANDBOX_UNIFIEDORDER_URL_SUFFIX : WxPayConstants.UNIFIEDORDER_URL_SUFFIX;
+        String url = properties.isEnableSandbox() ? WxPayConstants.SANDBOX_UNIFIEDORDER_URL : WxPayConstants.UNIFIEDORDER_URL;
         String domain = properties.getDomain();
 
         try {

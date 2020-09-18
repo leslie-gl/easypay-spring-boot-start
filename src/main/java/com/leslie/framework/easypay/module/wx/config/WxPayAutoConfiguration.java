@@ -36,7 +36,7 @@ public class WxPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WxPay wxPayService(HttpClient httpClient, WxPayProperties wxPayProperties) {
+    public WxPay wxPay(HttpClient httpClient, WxPayProperties wxPayProperties) {
         return new WxPay(new Client(httpClient, wxPayProperties), new Signer());
     }
 

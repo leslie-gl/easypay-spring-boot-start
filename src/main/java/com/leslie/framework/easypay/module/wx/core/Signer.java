@@ -1,8 +1,7 @@
 package com.leslie.framework.easypay.module.wx.core;
 
 import com.leslie.framework.easypay.common.util.SignUtils;
-import com.leslie.framework.easypay.module.wx.constant.SIGN_TYPE_ENUM;
-import com.leslie.framework.easypay.module.wx.constant.WxPayConstants;
+import com.leslie.framework.easypay.module.wx.config.WxPayConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -51,12 +50,12 @@ public class Signer {
      * @param signType 加密方式
      * @return 签名串
      */
-    public String sign(String content, String apiKey, SIGN_TYPE_ENUM signType) {
+    public String sign(String content, String apiKey, WxPayConstants.SIGN_TYPE_ENUM signType) {
         content = content + "key=" + apiKey;
 
         try {
 
-            if (SIGN_TYPE_ENUM.MD5 == signType) {
+            if (WxPayConstants.SIGN_TYPE_ENUM.MD5 == signType) {
                 return SignUtils.md5(content).toUpperCase();
             } else {
                 return SignUtils.hmacSha256(content, apiKey).toUpperCase();
@@ -78,9 +77,9 @@ public class Signer {
      * @param signType 加密方式
      * @return true：验证成功；false：验证失败
      */
-    public boolean verify(Map<String, String> params, String apiKey, SIGN_TYPE_ENUM signType) {
-        if (params.containsKey(WxPayConstants.FIELD_SIGN)) {
-            String sign = params.get(WxPayConstants.FIELD_SIGN);
+    public boolean verify(Map<String, String> params, String apiKey, WxPayConstants.SIGN_TYPE_ENUM signType) {
+        if (params.containsKey(WxPayConstants.SIGN_FIELD)) {
+            String sign = params.get(WxPayConstants.SIGN_FIELD);
             String content = signContent(params);
             return StringUtils.equals(sign, sign(content, apiKey, signType));
         }

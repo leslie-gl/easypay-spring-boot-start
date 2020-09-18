@@ -1,4 +1,4 @@
-package com.leslie.framework.easypay.module.ali.constant;
+package com.leslie.framework.easypay.module.ali.config;
 
 /**
  * 支付宝回调的支付通知类型

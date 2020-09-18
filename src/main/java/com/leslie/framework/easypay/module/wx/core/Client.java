@@ -1,8 +1,8 @@
 package com.leslie.framework.easypay.module.wx.core;
 
 import com.leslie.framework.easypay.common.util.ServletUtils;
+import com.leslie.framework.easypay.module.wx.config.WxPayConstants;
 import com.leslie.framework.easypay.module.wx.config.WxPayProperties;
-import com.leslie.framework.easypay.module.wx.constant.WxPayConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
