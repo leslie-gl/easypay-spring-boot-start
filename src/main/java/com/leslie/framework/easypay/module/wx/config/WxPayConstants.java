@@ -42,9 +42,22 @@ public class WxPayConstants {
      * user-agent
      */
     public static final String SDK_VERSION = "WXPaySDK/3.0.9";
-    public static final String USER_AGENT  = SDK_VERSION + " (" + System.getProperty("os.arch") + " " +
-            System.getProperty("os.name") + " " + System.getProperty("os.version") + ") Java/"
-            + System.getProperty("java.version") + " HttpClient/" + HttpClient.class.getPackage().getImplementationVersion();
+    public static final String USER_AGENT;
+
+    static {
+        USER_AGENT = SDK_VERSION +
+                " (" +
+                System.getProperty("os.arch") +
+                " " +
+                System.getProperty("os.name") +
+                " " +
+                System.getProperty("os.version") +
+                ") Java/" +
+                System.getProperty("java.version") +
+                " HttpClient/" +
+                HttpClient.class.getPackage().getImplementationVersion();
+    }
+
 
     /**
      * pay url

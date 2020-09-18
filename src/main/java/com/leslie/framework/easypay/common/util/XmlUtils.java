@@ -35,32 +35,12 @@ public class XmlUtils {
     private XmlUtils() {
     }
 
-    public static Document newDocument() throws ParserConfigurationException {
-        DocumentBuilder documentBuilder = newDocumentBuilder();
-        return documentBuilder.newDocument();
+    public static Document buildDocument() throws ParserConfigurationException {
+        return newDocumentBuilder().newDocument();
     }
 
     /**
-     * 防止XXE攻击
-     *
-     * @return DocumentBuilder
-     */
-    public static DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-
-        documentBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-        documentBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-        documentBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-        documentBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        documentBuilderFactory.setXIncludeAware(false);
-        documentBuilderFactory.setExpandEntityReferences(false);
-
-        return documentBuilderFactory.newDocumentBuilder();
-    }
-
-    /**
-     * XML格式字符串转换为Map
+     * 将XML格式字符串转换为Map
      *
      * @param xmlStr XML格式字符串
      * @return Map<String, String>
@@ -72,7 +52,6 @@ public class XmlUtils {
         try (InputStream is = new ByteArrayInputStream(xmlBytes)) {
 
             DocumentBuilder documentBuilder = newDocumentBuilder();
-            assert documentBuilder != null;
             document = documentBuilder.parse(is);
             document.getDocumentElement().normalize();
 
@@ -127,7 +106,7 @@ public class XmlUtils {
     }
 
     private static Document createDocument(Map<String, String> data) throws ParserConfigurationException {
-        Document document = newDocument();
+        Document document = buildDocument();
         Element root = document.createElement("xml");
         document.appendChild(root);
 
@@ -145,11 +124,34 @@ public class XmlUtils {
     }
 
     private static Transformer createTransformer() throws TransformerConfigurationException {
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
+        Transformer transformer = newTransformerFactory().newTransformer();
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         return transformer;
+    }
+
+    /**
+     * https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+     */
+    private static DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+
+        documentBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        documentBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        documentBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        documentBuilderFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        documentBuilderFactory.setXIncludeAware(false);
+        documentBuilderFactory.setExpandEntityReferences(false);
+
+        return documentBuilderFactory.newDocumentBuilder();
+    }
+
+    private static TransformerFactory newTransformerFactory() {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        return transformerFactory;
     }
 
 }
