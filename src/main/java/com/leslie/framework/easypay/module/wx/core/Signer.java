@@ -1,8 +1,10 @@
 package com.leslie.framework.easypay.module.wx.core;
 
-import com.leslie.framework.easypay.common.util.SignUtils;
 import com.leslie.framework.easypay.module.wx.config.WxPayConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.HmacAlgorithms;
+import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -56,9 +58,9 @@ public class Signer {
         try {
 
             if (WxPayConstants.SIGN_TYPE_ENUM.MD5 == signType) {
-                return SignUtils.md5(content).toUpperCase();
+                return DigestUtils.md5Hex(content).toUpperCase();
             } else {
-                return SignUtils.hmacSha256(content, apiKey).toUpperCase();
+                return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, apiKey).hmacHex(content).toUpperCase();
             }
 
         } catch (Exception e) {
