@@ -30,16 +30,15 @@ public class StrUtils {
     }
 
     /**
-     * 获取随机位数字符串
+     * 生成随机位数字符串
      *
      * @return String 随机字符串
      */
-    public static String getRandomStr(int var) {
+    public static String generateRandomStr(int var) {
         char[] chars = new char[var];
         for (int index = 0; index < chars.length; ++index) {
             chars[index] = SYMBOLS.charAt(RANDOM.nextInt(SYMBOLS.length()));
         }
         return new String(chars);
     }
-
 }

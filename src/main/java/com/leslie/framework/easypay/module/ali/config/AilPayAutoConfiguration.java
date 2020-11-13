@@ -46,5 +46,4 @@ public class AilPayAutoConfiguration {
     public AliPay aliPay() {
         return new AliPay();
     }
-
 }

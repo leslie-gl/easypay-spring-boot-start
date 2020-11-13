@@ -19,7 +19,7 @@ public class WxPayConstants {
         /**
          * HMAC-SHA256
          */
-        HMACSHA256;
+        HMAC_SHA_256;
     }
 
     /**
@@ -31,7 +31,7 @@ public class WxPayConstants {
     public static final String DOMAIN_API_US = "apius.mch.weixin.qq.com";
 
     /**
-     * 与微信网关交付中涉及到的字段值
+     * 与微信网关交付中涉及到的字段
      */
     public static final String SUCCESS         = "SUCCESS";
     public static final String FAIL            = "FAIL";
@@ -88,6 +88,5 @@ public class WxPayConstants {
     public static final String SANDBOX_REPORT_URL           = "/sandboxnew/payitil/report";
     public static final String SANDBOX_SHORTURL_URL         = "/sandboxnew/tools/shorturl";
     public static final String SANDBOX_AUTHCODETOOPENID_URL = "/sandboxnew/tools/authcodetoopenid";
-
 }
 

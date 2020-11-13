@@ -21,5 +21,4 @@ public class UnionPayAutoConfiguration {
     public UnionPay unionPay() {
         return new UnionPay();
     }
-
 }

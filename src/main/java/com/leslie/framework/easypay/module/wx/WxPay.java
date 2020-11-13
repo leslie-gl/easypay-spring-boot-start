@@ -89,11 +89,10 @@ public class WxPay {
         params.put("appid", properties.getAppId());
         params.put("mch_id", properties.getMchId());
         params.put("sign_type", properties.getSignType().name());
-        params.put("nonce_str", StrUtils.getRandomStr(32));
+        params.put("nonce_str", StrUtils.generateRandomStr(32));
 
         String content = signer.signContent(params);
         params.put("sign", signer.sign(content, properties.getKey(), properties.getSignType()));
         return params;
     }
-
 }

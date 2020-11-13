@@ -65,5 +65,4 @@ public class AliPayProperties {
      * 签名提供方的名称(可选)
      */
     private String signProvider;
-
 }

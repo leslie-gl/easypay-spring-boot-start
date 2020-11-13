@@ -100,5 +100,4 @@ public class WxPayAutoConfiguration {
         }
         return sslConnectionSocketFactory;
     }
-
 }

@@ -33,5 +33,4 @@ public enum ALIPAY_TRADE_ENUM {
     ALIPAY_TRADE_ENUM(String description) {
         this.description = description;
     }
-
 }

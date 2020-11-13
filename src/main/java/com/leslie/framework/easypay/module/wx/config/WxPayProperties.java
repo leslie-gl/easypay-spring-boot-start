@@ -86,5 +86,4 @@ public class WxPayProperties {
     // * 批量上报，一次最多上报多个数据
     // */
     //private int reportBatchSize = 10;
-
 }

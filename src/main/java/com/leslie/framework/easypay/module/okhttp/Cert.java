@@ -20,5 +20,4 @@ public class Cert {
     private char[] storePass;
 
     private char[] keyPass;
-
 }
