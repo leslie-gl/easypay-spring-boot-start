@@ -43,7 +43,7 @@ public class AilPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public AliPayClient aliPay() {
+    public AliPayClient aliPayClient() {
         return new AliPayClient();
     }
 }

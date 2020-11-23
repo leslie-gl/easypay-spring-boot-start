@@ -18,7 +18,7 @@ public class UnionPayAutoConfiguration {
 
     @ConditionalOnMissingBean
     @Bean
-    public UnionPayClient unionPay() {
+    public UnionPayClient unionPayClient() {
         return new UnionPayClient();
     }
 }
