@@ -17,13 +17,13 @@ import java.util.Map;
  * @date 2020/9/17
  */
 @Slf4j
-public class WxPay {
+public class WxPayClient {
 
     private final Client client;
 
     private final Signer signer;
 
-    public WxPay(Client client, Signer signer) {
+    public WxPayClient(Client client, Signer signer) {
         this.client = client;
         this.signer = signer;
     }

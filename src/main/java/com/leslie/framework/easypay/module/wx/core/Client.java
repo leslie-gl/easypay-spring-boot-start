@@ -13,8 +13,11 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
+ * HttpClient
+ *
  * @author leslie
  * @date 2020/9/8
  */
@@ -45,23 +48,19 @@ public class Client {
         String uri = generateUri(wxPayProperties.getProtocol(), wxPayProperties.getDomain(), url);
         HttpResponse httpResponse = httpClient.execute(createHttpPost(uri, params));
         HttpEntity httpEntity = httpResponse.getEntity();
-        return EntityUtils.toString(httpEntity, "UTF-8");
+        return EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);
     }
 
-    public HttpPost createHttpPost(String uri, String params) {
+    private HttpPost createHttpPost(String uri, String params) {
         HttpPost httpPost = new HttpPost(uri);
-
         httpPost.setConfig(requestConfig());
-
         httpPost.addHeader("Content-Type", ServletUtils.HTTP_CONTENT_HTML);
         httpPost.addHeader("User-Agent", WxPayConstants.USER_AGENT + " " + wxPayProperties.getMchId());
-
-        httpPost.setEntity(new StringEntity(params, "UTF-8"));
+        httpPost.setEntity(new StringEntity(params, StandardCharsets.UTF_8));
         return httpPost;
     }
 
-    public RequestConfig requestConfig() {
-
+    private RequestConfig requestConfig() {
         return RequestConfig.custom()
                 .setConnectTimeout((int) wxPayProperties.getConnectTimeout().toMillis())
                 .setSocketTimeout((int) wxPayProperties.getReadTimeout().toMillis())

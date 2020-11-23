@@ -1,6 +1,6 @@
 package com.leslie.framework.easypay.module.union.config;
 
-import com.leslie.framework.easypay.module.union.UnionPay;
+import com.leslie.framework.easypay.module.union.UnionPayClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,7 +18,7 @@ public class UnionPayAutoConfiguration {
 
     @ConditionalOnMissingBean
     @Bean
-    public UnionPay unionPay() {
-        return new UnionPay();
+    public UnionPayClient unionPay() {
+        return new UnionPayClient();
     }
 }

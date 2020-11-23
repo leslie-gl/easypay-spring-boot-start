@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2020/9/17
  */
 @Slf4j
-public class AliPay {
+public class AliPayClient {
 
     /**
      * PC场景下单并支付,直接输出Form表单
@@ -41,8 +41,13 @@ public class AliPay {
      *                     如果该字段是一个数组，请使用List储存各个值
      *                     对于更复杂的情况，也支持Map和List的各种组合嵌套，比如参数是值是个List，List中的每种类型是一个复杂对象
      */
-    public void pagePay(HttpServletResponse response, String subject, String outTradeNo, String totalAmount,
-                        String returnUrl, String notifyUrl, Map<String, Object> optionalArgs) {
+    public void pagePay(HttpServletResponse response,
+                        String subject,
+                        String outTradeNo,
+                        String totalAmount,
+                        String returnUrl,
+                        String notifyUrl,
+                        Map<String, Object> optionalArgs) {
         try {
 
             Client client = Factory.Payment.Page();
@@ -79,8 +84,14 @@ public class AliPay {
      * @param notifyUrl    异步回调地址,以HTTP/HTTPS开头 (可选参数)
      * @param optionalArgs 可选参数集合，每个参数由key和value组成 (可选参数)
      */
-    public void wayPay(HttpServletResponse response, String subject, String outTradeNo, String totalAmount, String quitUrl,
-                       String returnUrl, String notifyUrl, Map<String, Object> optionalArgs) {
+    public void wayPay(HttpServletResponse response,
+                       String subject,
+                       String outTradeNo,
+                       String totalAmount,
+                       String quitUrl,
+                       String returnUrl,
+                       String notifyUrl,
+                       Map<String, Object> optionalArgs) {
         try {
 
             com.alipay.easysdk.payment.wap.Client client = Factory.Payment.Wap();

@@ -54,7 +54,6 @@ public class Signer {
      */
     public String sign(String content, String apiKey, WxPayConstants.SIGN_TYPE_ENUM signType) {
         content = content + "key=" + apiKey;
-
         try {
 
             if (WxPayConstants.SIGN_TYPE_ENUM.MD5 == signType) {

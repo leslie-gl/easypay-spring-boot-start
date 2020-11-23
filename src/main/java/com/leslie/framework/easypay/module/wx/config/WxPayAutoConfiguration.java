@@ -1,6 +1,6 @@
 package com.leslie.framework.easypay.module.wx.config;
 
-import com.leslie.framework.easypay.module.wx.WxPay;
+import com.leslie.framework.easypay.module.wx.WxPayClient;
 import com.leslie.framework.easypay.module.wx.core.Client;
 import com.leslie.framework.easypay.module.wx.core.Signer;
 import org.apache.http.client.HttpClient;
@@ -36,8 +36,8 @@ public class WxPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WxPay wxPay(HttpClient httpClient, WxPayProperties wxPayProperties) {
-        return new WxPay(new Client(httpClient, wxPayProperties), new Signer());
+    public WxPayClient wxPay(HttpClient httpClient, WxPayProperties wxPayProperties) {
+        return new WxPayClient(new Client(httpClient, wxPayProperties), new Signer());
     }
 
 
