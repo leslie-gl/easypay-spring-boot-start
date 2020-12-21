@@ -66,7 +66,7 @@ public class AliPayClient {
             ServletUtils.write(response, payResponse.body);
 
         } catch (Exception e) {
-            log.error("pc支付异常, method=alipay.trade.page.pay outTradeNo={} reason={}", e.getMessage(), e);
+            log.error("pc支付异常,outTradeNo={} reason={}", e.getMessage(), e);
         }
     }
 
@@ -110,7 +110,7 @@ public class AliPayClient {
             ServletUtils.write(response, payResponse.body);
 
         } catch (Exception e) {
-            log.error("手机网站支付异常, method=alipay.trade.way.pay outTradeNo={} reason={}", outTradeNo, e.getMessage());
+            log.error("手机网站支付异常,outTradeNo={} reason={}", outTradeNo, e.getMessage());
         }
     }
 
@@ -143,7 +143,7 @@ public class AliPayClient {
             return client.refund(outTradeNo, refundAmount);
 
         } catch (Exception e) {
-            log.error("统一退款异常, method=alipay.trade.refund outTradeNo={} reason={}", outTradeNo, e.getMessage());
+            log.error("统一退款异常,outTradeNo={} reason={}", outTradeNo, e.getMessage());
         }
         return null;
     }
@@ -165,7 +165,7 @@ public class AliPayClient {
                     .refund(outTradeNo, refundAmount);
 
         } catch (Exception e) {
-            log.error("统一退款异常, method=alipay.trade.refund outTradeNo={} reason={}", outTradeNo, e.getMessage());
+            log.error("统一退款异常,outTradeNo={} reason={}", outTradeNo, e.getMessage());
         }
         return null;
     }
@@ -179,11 +179,9 @@ public class AliPayClient {
     @Nullable
     public AlipayTradeQueryResponse query(String outTradeNo) {
         try {
-
             return Factory.Payment.Common().query(outTradeNo);
-
         } catch (Exception e) {
-            log.error("统一收单线下交易查询异常, method=alipay.trade.query outTradeNo={} reason={}", outTradeNo, e.getMessage());
+            log.error("统一收单线下交易查询异常,outTradeNo={} reason={}", outTradeNo, e.getMessage());
         }
         return null;
     }
@@ -196,9 +194,7 @@ public class AliPayClient {
      */
     public boolean verifyNotify(Map<String, String> parameters) {
         try {
-
             return Factory.Payment.Common().verifyNotify(parameters);
-
         } catch (Exception e) {
             log.error("验签异常, reason={}", e.getMessage());
         }
